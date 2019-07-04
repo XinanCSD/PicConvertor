@@ -47,7 +47,7 @@ class PicConvert(qw.QWidget):
         self.picH = 0
         self.picSuffix = os.path.splitext(self.picFile)[1]
 
-        self.tmpF = NamedTemporaryFile(suffix=self.picSuffix)
+        self.tmpF = NamedTemporaryFile(suffix=self.picSuffix, delete=False)
         self.initset_picture()
 
         # 重设的图片尺寸 - 最终尺寸
@@ -58,6 +58,8 @@ class PicConvert(qw.QWidget):
         self.radioId = 0
 
         self.initUI()
+        self.tmpF.close()
+        os.unlink(self.tmpF.name)
 
     def initUI(self):
         self.setGeometry(self.QWax, self.QWay, self.QWaw, self.QWah)
